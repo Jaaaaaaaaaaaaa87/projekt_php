@@ -37,70 +37,73 @@ $query = "SELECT id, name, price FROM products WHERE id IN ($product_ids)";
 if(empty($_SESSION['cart'])){
     echo "<link rel='stylesheet' href='projekt_cart_style.css'/>Koszyk jest pusty. <a href='projekt_userside.php'>Wróć do sklepu</a>";
 }else{
-$result = mysqli_query($conn, $query);
+    $result = mysqli_query($conn, $query);
 
-// Przetwarzanie i wyświetlanie koszyka
-$cart_total = 0;
+    // Przetwarzanie i wyświetlanie koszyka
+    $cart_total = 0;
     ?>
     <!DOCTYPE html>
-    <html>
-        <head>
-            <title>Koszyk</title>
-            <link rel="stylesheet" href="projekt_cart_style.css"/>
-        </head>
-        <body>
-            <div class="container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nazwa</th>
-                            <th>Cena</th>
-                            <th>Ilość</th>
-                            <th>Suma</th>
-                            <th>Opcje</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php while($row = mysqli_fetch_array($result)): 
-                        $product_id = $row['id'];
-                        $product_name = $row['name'];
-                        $product_price = $row['price'];
-                        $product_quantity = $_SESSION['cart'][$product_id];
-                        $product_total = $product_price * $product_quantity;
-                        $cart_total += $product_total;
-                        ?>
-                        <tr>
-                        <td><?php echo $product_name; ?></td>
-                        <td><?php echo $product_price; ?> PLN</td>
-                        <td>
+<html>
+    <head>
+        <title>Koszyk</title>
+        <link rel="stylesheet" href="projekt_cart_style.css"/>
+    </head>
+    <body>
+        <div class="container">
+            <table>
+                <thead>
+                <tr>
+                <th>Nazwa</th>
+                    <th>Cena</th>
+                    <th>Ilość</th>
+                    <th>Suma</th>
+                    <th>Opcje</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php while($row = mysqli_fetch_array($result)): 
+                $product_id = $row['id'];
+                $product_name = $row['name'];
+                $product_price = $row['price'];
+                $product_quantity = $_SESSION['cart'][$product_id];
+                $product_total = $product_price * $product_quantity;
+                $cart_total += $product_total;
+                ?>
+                <tr>
+                    <td><?php echo $product_name; ?></td>
+                    <td><?php echo $product_price; ?> PLN</td>
+                    <td>
                         <form action="projekt_cart.php" method="post">
-                        <input type="hidden" name="edit_id" value="<?php echo $product_id; ?>">
-                        <input type="number" name="quantity" value="<?php echo $product_quantity; ?>" min="1">
-                        <input type="submit" value="Zapisz">
+                            <input type="hidden" name="edit_id" value="<?php echo $product_id; ?>">
+                            <input type="number" name="quantity" value="<?php echo $product_quantity; ?>" min="1" max="10">
+                            <input type="submit" value="Zmień">
                         </form>
-                        </td>
-                        <td><?php echo $product_total; ?> PLN</td>
-                        <td>
+                    </td>
+                    <td><?php echo $product_total; ?> PLN</td>
+                    <td>
                         <a href="projekt_cart.php?remove_id=<?php echo $product_id; ?>">Usuń</a>
-                        </td>
-                        <td>
-                        <a href="projekt_userside.php">Wróć do sklepu</a>
-                        </td>
-                        </tr>
-                        <?php endwhile; ?>
-                        </tbody>
-                        <tfoot>
-                        <tr>
-                        <td colspan="3">Suma:</td>
-                        <td><?php echo $cart_total; ?> PLN</td>
-                        </tr>
-                        </tfoot>
-                        </table>
-            </div>
-        </body>
-    </html>
-    <?php }?>
+                    </td>
+                </tr>
+                <?php endwhile; ?>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3"></td>
+                    <td><?php echo $cart_total; ?> PLN</td>
+                    <td>
+                        <form action="projekt_checkout.php" method="post">
+                            <input type="submit" value="Do kasy">
+                        </form>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <a href="projekt_userside.php">Wróć do sklepu</a>
+    </div>
+</body>
+</html>
 <?php
-// Zamykanie połączenia z bazą danych
-mysqli_close($conn);
+}
 ?>
+
+

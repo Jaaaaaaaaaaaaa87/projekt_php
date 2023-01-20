@@ -11,7 +11,7 @@ a{
 .product{
     background-color: white;
     width: 250px; /* Szerokość prostokąta produktu */
-    height: 750px; /* Wysokość prostokąta produktu */
+    height: 950px; /* Wysokość prostokąta produktu */
     border: 1px solid black; /* Ramka okalająca produkt */
     float: left; /* Umieszczanie produktów obok siebie */
     margin: 10px; /* Marginesy między produktami */

@@ -29,6 +29,7 @@
                     if($row['isadmin'] == 1){
                         // for admin
                         echo "Witaj, administratorze! Masz dostęp do specjalnych funkcji.";
+                        header("Location: projekt_adminside.php");
                     }else{
                         // for not admin
                         echo "Witaj, użytkowniku! Twoje konto nie posiada specjalnych uprawnień.";
