@@ -63,7 +63,11 @@ $cart_total = 0;
                     // Zapisanie zamówienia do bazy danych
 
                     // Pobranie ID zalogowanego użytkownika
-                    $user_id = $_SESSION['user_id'];
+                    $conn = mysqli_connect("localhost", "root", "", "users");
+                    $user = $_SESSION['username'];
+                    $query = "SELECT id FROM users WHERE username='$user'";
+                    $result = mysqli_query($conn, $query);
+                    $user_id = mysqli_fetch_array($result)['id'];
 
                     // Konwersja tablicy z produktami na string z id produktów oddzielonymi przecinkami
                     $product_ids = implode(',', array_keys($_SESSION['cart']));
@@ -81,6 +85,7 @@ $cart_total = 0;
                 ?>
             </form>
         </div>
+        <a href="projekt_userside.php">Wróć do sklepu</a>
     </body>
 </html>
 <?php
