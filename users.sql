@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 20 Sty 2023, 19:54
+-- Czas generowania: 20 Sty 2023, 20:37
 -- Wersja serwera: 10.4.22-MariaDB
 -- Wersja PHP: 8.1.2
 
@@ -39,16 +39,7 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `user_id`, `product_ids`, `cart_total`) VALUES
-(1, 0, 2, 234),
-(2, 0, 2, 234),
-(3, 0, 2, 234),
-(4, 0, 2, 234),
-(5, 9, 2, 234),
-(6, 9, 2, 234),
-(7, 9, 2, 234),
-(8, 9, 2, 234),
-(9, 9, 2, 234),
-(10, 9, 2, 682);
+(1, 11, 2, 234);
 
 -- --------------------------------------------------------
 
@@ -94,7 +85,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `time_created`, `isadmin`) VALUES
 (9, 'test', 'test@test.test', '098f6bcd4621d373cade4e832627b4f6', '2023-01-19 21:42:57', 0),
-(10, 'admin', 'admin@admin.admin', '21232f297a57a5a743894a0e4a801fc3', '2023-01-19 21:54:13', 1);
+(10, 'admin', 'admin@admin.admin', '21232f297a57a5a743894a0e4a801fc3', '2023-01-19 21:54:13', 1),
+(11, 'jan', 'jan@jan.jan', 'fa27ef3ef6570e32a79e74deca7c1bc3', '2023-01-20 20:11:32', 0);
 
 --
 -- Indeksy dla zrzutów tabel
@@ -126,13 +118,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT dla tabeli `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT dla tabeli `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -51,44 +51,41 @@ $cart_total = 0;
                     </tr>
                 </tfoot>
             </table>
-            <form action="projekt_success.php" method="post">
+            <form action="" method="post">
                 <label for="name">Imię i nazwisko:</label>
                 <input type="text" id="name" name="name" required>
                 <label for="email">Adres email:</label>
                 <input type="email" id="email" name="email" required>
                 <label for="address">Adres:</label>
                 <input type="text" id="address" name="address" required>
-                <input type="submit" value="Zamów">
+                <input type="submit" name="submit" value="Zamów">
+                </form>
+                <a href="projekt_userside.php">Wróć</a>
                 <?php
-                    // Zapisanie zamówienia do bazy danych
-
-                    // Pobranie ID zalogowanego użytkownika
-                    $conn = mysqli_connect("localhost", "root", "", "users");
-                    $user = $_SESSION['username'];
-                    $query = "SELECT id FROM users WHERE username='$user'";
-                    $result = mysqli_query($conn, $query);
-                    $user_id = mysqli_fetch_array($result)['id'];
-
-                    // Konwersja tablicy z produktami na string z id produktów oddzielonymi przecinkami
-                    $product_ids = implode(',', array_keys($_SESSION['cart']));
-
-                    // Tworzenie zapytania INSERT
-                    $query = "INSERT INTO orders (user_id, product_ids, cart_total) VALUES ('$user_id', '$product_ids', '$cart_total')";
-
-                    // Wykonanie zapytania i sprawdzenie czy zamówienie zostało zapisane pomyślnie
-                    if(mysqli_query($conn, $query)){
-                        echo "Zamówienie zapisane pomyślnie.";
-                    } else {
-                        echo "Wystąpił błąd podczas zapisywania zamówienia: " . mysqli_error($conn);
-                    }
-
-                ?>
-            </form>
-        </div>
-        <a href="projekt_userside.php">Wróć do sklepu</a>
-    </body>
-</html>
-<?php
-// Zamykanie połączenia z bazą danych
-mysqli_close($conn);
-?>
+                if(isset($_POST['submit'])) {
+                // Pobranie ID zalogowanego użytkownika
+                $conn = mysqli_connect("localhost", "root", "", "users");
+                $user = $_SESSION['username'];
+                $query = "SELECT id FROM users WHERE username='$user'";
+                $result = mysqli_query($conn, $query);
+                $user_id = mysqli_fetch_array($result)['id'];
+                                // Konwersja tablicy z produktami na string z id produktów oddzielonymi przecinkami
+                                $product_ids = implode(',', array_keys($_SESSION['cart']));
+            
+                                // Tworzenie zapytania INSERT
+                                $query = "INSERT INTO orders (user_id, product_ids, cart_total) VALUES ('$user_id', '$product_ids', '$cart_total')";
+                            
+                                // Wykonanie zapytania i sprawdzenie czy zostało ono prawidłowo wykonane
+                                if(mysqli_query($conn, $query)){
+                                    // Opróżnienie koszyka
+                                    unset($_SESSION['cart']);
+                                    // Przekierowanie na stronę z potwierdzeniem zamówienia
+                                    header("Location: projekt_success.php");
+                                } else {
+                                    echo "Błąd podczas zamawiania produktów. Proszę spróbować ponownie później.";
+                                }
+                            }
+                        ?>
+                    </div>
+                </body>
+</html>                
