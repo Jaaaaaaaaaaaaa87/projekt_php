@@ -1,0 +1,46 @@
+/* Ogólne style */
+
+body{
+    background: #3e4144;
+    font-family: Arial, sans-serif;
+}
+a{
+    color: azure;
+}
+/* Style dla divów produktów */
+.product{
+    background-color: white;
+    width: 250px; /* Szerokość prostokąta produktu */
+    height: 750px; /* Wysokość prostokąta produktu */
+    border: 1px solid black; /* Ramka okalająca produkt */
+    float: left; /* Umieszczanie produktów obok siebie */
+    margin: 10px; /* Marginesy między produktami */
+}
+
+/* Style dla zdjęcia produktu */
+.product img{
+    width: 100%; /* Szerokość zdjęcia równa szerokości diva produktu */
+    height: 200px; /* Wysokość zdjęcia */
+}
+
+/* Style dla formularza */
+.product form{
+    padding: 10px; /* Odstępy wewnątrz formularza */
+}
+
+/* Style dla inputów */
+.product input[type="number"]{
+    width: 50px; /* Szerokość pola ilości */
+    margin-right: 10px; /* Odstęp między pole ilości a przyciskiem */
+    margin-bottom: 0px;
+}
+.product input[type="submit"]{
+    background-color: green; /* Kolor tła przycisku */
+    color: white; /* Kolor tekstu przycisku */
+    border: none; /* Bez ramki */
+    padding: 5px 10px; /* Odstępy wewnątrz przycisku */
+    margin-bottom: 0px;
+}
+.user-options{
+    float: right;
+}
